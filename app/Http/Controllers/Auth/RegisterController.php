@@ -11,7 +11,7 @@ use App\Http\Requests\Auth\RegisterRequest;
 
 class RegisterController extends Controller
 {
-    public function store(RegisterRequest $request) {
+    public function register(RegisterRequest $request) {
         $data = $request->validated();
 
         $data['password'] = Hash::make($data['password']);
@@ -20,6 +20,6 @@ class RegisterController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('home');
+        return response()->json(['user' => $user,], 201);
     }
 }
