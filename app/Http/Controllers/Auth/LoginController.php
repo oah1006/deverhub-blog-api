@@ -7,22 +7,27 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\Auth\LoginRequest;
 
-class RegisterController extends Controller
+class LoginController extends Controller
 {
-    public function register(RegisterRequest $request) {
+    public function login(LoginRequest $request) {
         $data = $request->validated();
 
-        $data['password'] = bcrypt($data['password']);
+        $user = User::where('email', $data['email'])->first();
 
-        $user = User::create($data);
+        if (!$user || !Hash::check($data['password'], $user->password)) {
+            return response([
+                'message' => 'Auth faild'
+            ], 401);
+        }
 
         $token = $user->createToken('apitoken')->plainTextToken;
 
-        return response()->json([
+        return response([
             'user' => $user,
             'token' => $token
         ], 201);
     }
+
 }
