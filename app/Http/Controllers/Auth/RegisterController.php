@@ -14,12 +14,17 @@ class RegisterController extends Controller
     public function register(RegisterRequest $request) {
         $data = $request->validated();
 
-        $data['password'] = Hash::make($data['password']);
+        $data['password'] = bcrypt($data['password']);
 
         $user = User::create($data);
 
+        $token = $user->createToken('apitoken')->plainTextToken;
+
         Auth::login($user);
 
-        return response()->json(['user' => $user,], 201);
+        return response()->json([
+            'user' => $user,
+            'token' => $token
+        ], 201);
     }
 }
