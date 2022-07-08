@@ -71,10 +71,13 @@ class CatalogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updateCatalog = Catalog::find($id)->update($request->all());
+        $catalog = Catalog::findOrFail($id);
+        $catalog->update($request->all());
+        $catalog->fresh();
+        
         return response()->json([
-            'update_catalog' => $$updateCatalog
-        ], 201);
+            'catalog' => $catalog
+        ], 200);
     }
 
     /**
