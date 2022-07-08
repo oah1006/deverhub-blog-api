@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\admin\CatalogController;
 use App\Http\Controllers\Auth\RegisterController;
 
 /*
@@ -24,5 +25,11 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('auth')->name('auth.')->group(function() {
         Route::post('/register', [RegisterController::class, 'register'])->name('register');
         Route::post('/login', [LoginController::class, 'login'])->name('login');
+    });
+
+    Route::prefix('catalog')->name('catalog.')->group(function() {
+        Route::post('/store', [CatalogController::class, 'store'])->name('store');
+        Route::get('/show/{id}', [CatalogController::class, 'show'])->name('show');
+
     });
 });
