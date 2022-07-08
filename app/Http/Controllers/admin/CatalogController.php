@@ -71,7 +71,7 @@ class CatalogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        return Catalog::find($id)->update($request->all());
     }
 
     /**
@@ -82,6 +82,6 @@ class CatalogController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Catalog::destroy($id);
     }
 }
