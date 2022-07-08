@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Catalog;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CreateCatalogRequest;
+use App\Http\Requests\Admin\UpdateCatalogRequest;
 
 class CatalogController extends Controller
 {
@@ -69,7 +70,7 @@ class CatalogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCatalogRequest $request, $id)
     {
         $catalog = Catalog::findOrFail($id);
         $catalog->update($request->all());
