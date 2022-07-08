@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\CatalogController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -33,4 +34,8 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::post('/update/{id}', [CatalogController::class, 'update'])->name('update');
         Route::delete('/destroy/{id}', [CatalogController::class, 'destroy'])->name('destroy');
     });
+
+    Route::prefix('post')->name('post.')->group(function() {
+        Route::post('/store', [PostController::class, 'store'])->name('store');
+    }); 
 });
