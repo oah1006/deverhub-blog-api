@@ -27,7 +27,7 @@ class LoginController extends Controller
         return response([
             'user' => $user,
             'token' => $token
-        ], 201);
+        ]);
     }
 
 }
