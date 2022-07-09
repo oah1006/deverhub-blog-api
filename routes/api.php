@@ -37,5 +37,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
 
     Route::prefix('post')->name('post.')->group(function() {
         Route::post('/store', [PostController::class, 'store'])->name('store');
+        Route::get('/show/{id}', [PostController::class, 'show'])->name('show');
     }); 
 });
