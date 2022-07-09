@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Post;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Catalog extends Model
 {
@@ -14,4 +15,8 @@ class Catalog extends Model
         'description',
         'parent_id'
     ];
+
+    public function product() {
+        return $this->hasMAny(Post::class);
+    }
 }
