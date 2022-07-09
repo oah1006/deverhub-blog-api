@@ -26,6 +26,8 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('auth')->name('auth.')->group(function() {
         Route::post('/register', [RegisterController::class, 'register'])->name('register');
         Route::post('/login', [LoginController::class, 'login'])->name('login');
+        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
     });
 
     Route::prefix('catalog')->name('catalog.')->group(function() {
