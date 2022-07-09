@@ -90,6 +90,6 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Post::findOrFail($id)->delete();
     }
 }
