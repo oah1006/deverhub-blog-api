@@ -31,6 +31,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
     });
 
     Route::prefix('catalog')->name('catalog.')->group(function() {
+        Route::get('/search', [CatalogController::class, 'index'])->name('search');
         Route::post('/store', [CatalogController::class, 'store'])->name('store');
         Route::get('/show/{id}', [CatalogController::class, 'show'])->name('show');
         Route::post('/update/{id}', [CatalogController::class, 'update'])->name('update');
