@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CreatePostRequest;
+use App\Http\Requests\Admin\UpdatePostRequest;
 
 class PostController extends Controller
 {
@@ -69,9 +70,16 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->update($request->all());
+        
+        $post->fresh();
+
+        return response()->json([
+            'post' => $post
+        ], 200);
     }
 
     /**
