@@ -52,6 +52,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::get('/show/{id}', [UserController::class, 'show'])->name('show');
         Route::post('/update/{id}', [UserController::class, 'update'])->name('update');
         Route::delete('/destroy/{id}', [UserController::class, 'destroy'])->name('destroy');
-
+        Route::get('/search', [UserController::class, 'index'])->name('search');
     });
 });

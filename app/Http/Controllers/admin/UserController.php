@@ -14,9 +14,27 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $users = User::query();
+
+        if ($request->filled('keywords')) {
+            $q = $request->keywords;
+
+            $users->where(function ($query) use ($q) {
+                $query->where('username', 'like', '%' . $q . '%')
+                    ->orWhere('email', 'like', '%' . $q . '%')
+                    ->orWhere('role', 'like', '%' . $q . '%');
+            });
+        }
+
+        if ($request->filled('role')) {
+            $role = $request->role;
+
+            $users->where('role', $role);
+        }
+
+        return $users->get();
     }
 
     /**
