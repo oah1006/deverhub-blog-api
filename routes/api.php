@@ -50,5 +50,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::prefix('user')->name('user.')->group(function() {
         Route::post('/store', [UserController::class, 'store'])->name('store');
         Route::get('/show/{id}', [UserController::class, 'show'])->name('show');
+        Route::post('/update/{id}', [UserController::class, 'update'])->name('update');
     });
 });
