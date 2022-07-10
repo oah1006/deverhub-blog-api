@@ -106,6 +106,6 @@ class CatalogController extends Controller
      */
     public function destroy($id)
     {
-        return Catalog::destroy($id);
+        return Catalog::findOrFail($id)->delete();
     }
 }
