@@ -30,8 +30,8 @@ class CatalogController extends Controller
         }
 
         if ($request->filled('parent_id')) {
-            $parent_id = $request->parent_id;
-            $catalogs->where('parent_id', $parent_id);
+            $parentId = $request->parent_id;
+            $catalogs->where('parent_id', $parentId);
         }
 
         return $catalogs->get();

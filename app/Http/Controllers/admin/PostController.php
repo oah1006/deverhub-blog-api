@@ -15,9 +15,36 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $posts = Post::query();
+
+        if ($request->filled('keywords')) {
+            $q = $request->keywords;
+
+            $posts->where(function($query) use ($q) {
+                $query->where('title', 'like', '%' . $q . '%')
+                    ->orWhere('description', 'like', '%' . $q . '%')
+                    ->orWhere('content', 'like', '%' . $q . '%')
+                    ->orWhere('author_id', 'like', '%' . $q . '%')
+                    ->orWhere('catalog_id', 'like', '%' . $q . '%')
+                    ->orWhere('published', 'like', '%' . $q . '%');
+            });
+        }
+
+        if ($request->filled('author_id')) {
+            $userId = $request->author_id;
+
+            $posts->where('author_id', $userId);
+        }
+
+        if ($request->filled('catalog_id')) {
+            $catalogId = $request->catalog_id;
+
+            $posts->where('catalog_id', $catalogId);
+        }
+
+        return $posts->get();
     }
 
     /**
