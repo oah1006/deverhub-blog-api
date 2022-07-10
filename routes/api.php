@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\CatalogController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -45,4 +46,8 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::delete('/destroy/{id}', [PostController::class, 'destroy'])->name('destroy');
         Route::get('/search', [PostController::class, 'index'])->name('search');
     }); 
+
+    Route::prefix('user')->name('user.')->group(function() {
+        Route::post('/store', [UserController::class, 'store'])->name('store');
+    });
 });
