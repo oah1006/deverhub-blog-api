@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CatalogController as UserCatalogController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
@@ -53,5 +54,11 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::post('/update/{id}', [UserController::class, 'update'])->name('update');
         Route::delete('/destroy/{id}', [UserController::class, 'destroy'])->name('destroy');
         Route::get('/search', [UserController::class, 'index'])->name('search');
+    });
+});
+
+Route::prefix('home')->name('home.')->group(function() {
+    Route::prefix('catalog')->name('catalog.')->group(function() {
+        Route::get('/index', [UserCatalogController::class, 'index'])->name('index');
     });
 });
