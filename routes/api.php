@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatalogController as UserCatalogController;
+use App\Http\Controllers\PostController as UserPostController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
@@ -60,5 +61,12 @@ Route::prefix('admin')->name('admin.')->group(function() {
 Route::prefix('home')->name('home.')->group(function() {
     Route::prefix('catalog')->name('catalog.')->group(function() {
         Route::get('/index', [UserCatalogController::class, 'index'])->name('index');
+    });
+
+    Route::prefix('post')->name('post.')->group(function() {
+        Route::get('/index', [UserPostController::class, 'index'])->name('index');
+        Route::get('/getPostByCatalog/{id}', [UserPostController::class, 'getPostByCatalog'])->name('getPostByCatalog');
+        Route::get('/show/{id}', [UserPostController::class, 'show'])->name('show');
+        Route::get('/lastest', [UserPostController::class, 'lastest'])->name('lastest');
     });
 });
