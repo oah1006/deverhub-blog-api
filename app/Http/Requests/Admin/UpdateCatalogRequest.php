@@ -24,7 +24,7 @@ class UpdateCatalogRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string', 'min:2', 'max:255', 'unique:catalogs,title'],
+            'title' => ['required', 'string', 'min:2', 'max:255', "unique:catalogs,title,{$this->catalog}"],
             'description' => ['required', 'string', 'min:2', 'max:255'],
             'parent_id' => ['nullable', 'exists:catalogs,id']
         ];

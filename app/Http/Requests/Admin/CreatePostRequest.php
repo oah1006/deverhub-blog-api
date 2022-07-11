@@ -29,8 +29,8 @@ class CreatePostRequest extends FormRequest
             'content' => ['required', 'string', 'min:2', 'max:255'],
             'thumbnail' => ['nullable', 'image'],
             'published' => ['required', 'boolean'],
-            'author_id' => ['nullable', 'exists:users,id'],
-            'catalog_id' => ['nullable', 'exists:catalogs,id']
+            'author_id' => ['required', 'exists:users,id'],
+            'catalog_id' => ['required', 'exists:catalogs,id']
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CreatePostRequest;
 use App\Http\Requests\Admin\UpdatePostRequest;
@@ -33,9 +34,9 @@ class PostController extends Controller
         }
 
         if ($request->filled('author_id')) {
-            $userId = $request->author_id;
+            $authorId = $request->author_id;
 
-            $posts->where('author_id', $userId);
+            $posts->where('author_id', $authorId);
         }
 
         if ($request->filled('catalog_id')) {
@@ -44,18 +45,11 @@ class PostController extends Controller
             $posts->where('catalog_id', $catalogId);
         }
 
-        return $posts->get();
+        $posts = $posts->paginate(10);
+
+        return response()->json($posts);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -65,7 +59,15 @@ class PostController extends Controller
      */
     public function store(CreatePostRequest $request)
     {
-        return Post::create($request->all());
+        $data = $request->validated();
+
+
+        if ($request->hasFile('thumbnail')) {
+            $data['thumbnail'] = $request->file('thumbnail')->store('thumbnails');
+            
+        }
+
+        return Post::create($data);
     }
 
     /**
@@ -80,17 +82,6 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -99,10 +90,15 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, $id)
     {
+        DB::enableQueryLog();
+        
         $post = Post::findOrFail($id);
-        $post->update($request->all());
+        dump($request->validated());
+        $post->update($request->validated());
         
         $post->fresh();
+
+        dd(DB::getQueryLog());
 
         return response()->json([
             'post' => $post

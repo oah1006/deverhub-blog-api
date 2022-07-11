@@ -25,8 +25,8 @@ class CreateUserRequest extends FormRequest
     {
         return [
             'username' => ['required', 'string', 'max:255'],
-            'email' => ['email', 'string', 'unique:users,email'],
-            'password' => ['nullable', 'string', 'min:8'],
+            'email' => ['required', 'email', 'string', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8'],
             'role' => ['required', 'in:admin,author'],
             'email_verified_at' => ['nullable', 'boolean'],
         ];

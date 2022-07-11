@@ -34,19 +34,8 @@ class CatalogController extends Controller
             $catalogs->where('parent_id', $parentId);
         }
 
-        return $catalogs->get();
+        return $catalogs->paginate(10);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -67,17 +56,6 @@ class CatalogController extends Controller
     public function show($id)
     {
         return Catalog::findOrFail($id);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        
     }
 
     /**
