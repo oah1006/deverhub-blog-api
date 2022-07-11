@@ -48,9 +48,8 @@ Route::prefix('home')->name('home.')->group(function() {
         Route::get('/index', [UserCatalogController::class, 'index'])->name('index');
     });
 
-    Route::prefix('post')->name('post.')->group(function() {
-        Route::get('/index', [UserPostController::class, 'index'])->name('index');
-        Route::get('/getPostByCatalog/{id}', [UserPostController::class, 'getPostByCatalog'])->name('getPostByCatalog');
-        Route::get('/show/{id}', [UserPostController::class, 'show'])->name('show');
+    Route::prefix('posts')->name('posts.')->group(function() {
+        Route::get('/', [UserPostController::class, 'index'])->name('index');
+        Route::get('/{post}', [UserPostController::class, 'show'])->name('show');
     });
 });

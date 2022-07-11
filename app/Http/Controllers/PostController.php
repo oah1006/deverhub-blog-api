@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index(Request $request) {
-        $posts = Post::query();
+        $posts = Post::query()->where('published', 1);
 
         if ($request->filled('keywords')) {
             $q = $request->keywords;
@@ -36,18 +36,11 @@ class PostController extends Controller
             $posts->where('catalog_id', $catalogId);
         }
 
-        if ($request->filled('lastest') == 1) {
-            $posts->lastest();
+        if ($request->filled('latest') == 1) {
+            $posts->latest();
         }
 
-
         $posts = $posts->paginate(10);
-
-        return response()->json($posts);
-    }
-
-    public function getPostByCatalog($catalogId) {
-        $posts = Post::where('catalog_id', $catalogId)->get();
 
         return response()->json($posts);
     }
