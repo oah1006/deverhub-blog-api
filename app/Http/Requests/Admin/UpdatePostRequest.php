@@ -24,13 +24,13 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string', 'min:2', 'max:255', 'unique:catalogs,title'],
-            'description' => ['required', 'string', 'min:2', 'max:255'],
-            'content' => ['required', 'string', 'min:2', 'max:255'],
-            'thumbnail' => ['nullable', 'image'],
-            'published' => ['required', 'boolean'],
-            'author_id' => ['required', 'exists:users,id'],
-            'catalog_id' => ['required', 'exists:catalogs,id']
+            'title' => ['sometimes', 'string', 'min:2', 'max:255', 'unique:catalogs,title'],
+            'description' => ['sometimes', 'string', 'min:2', 'max:255'],
+            'content' => ['sometimes', 'string', 'min:2', 'max:255'],
+            'thumbnail' => ['sometimes', 'image'],
+            'published' => ['sometimes', 'boolean'],
+            'author_id' => ['sometimes', 'exists:users,id'],
+            'catalog_id' => ['sometimes', 'exists:catalogs,id']
         ];
     }
 }

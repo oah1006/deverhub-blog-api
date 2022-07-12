@@ -31,12 +31,14 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::post('/login', [LoginController::class, 'login'])->name('login');
     });
 
+    Route::apiResource('posts', PostController::class);
+
     Route::middleware('auth:sanctum')->group(function() {
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
         Route::apiResource('catalogs', CatalogController::class);
 
-        Route::apiResource('posts', PostController::class);
+
     
         Route::apiResource('users', UserController::class);
     });
